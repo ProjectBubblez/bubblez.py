@@ -1,5 +1,4 @@
 import requests
-from requests import api
 
 baseurl = "https://bubblez.app/api/v1/"
 header = { "Content-Type": "application/x-www-form-urlencoded" }
