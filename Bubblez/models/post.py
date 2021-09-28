@@ -20,7 +20,7 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Iets ging fout met post/delete.. Status_code:", resp.status_code)
+                print("Something whent wrong with: post/delete.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
                 
@@ -39,7 +39,7 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Iets ging fout met post/get.. Status_code:", resp.status_code)
+                print("Something whent wrong with: post/get.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
 
@@ -61,7 +61,7 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Iets ging fout met post/send.. Status_code:", resp.status_code)
+                print("Something whent wrong with: post/send.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
                 
@@ -80,7 +80,7 @@ class Post:
                 try:
                     return resp.json()
                 except:
-                    print("Iets ging fout met post/latest.. Status_code:", resp.status_code)
+                    print("Something whent wrong with: post/latest.. Status_code:", resp.status_code)
                     print("Content: ", resp.content)
                     return False 
                     
@@ -96,7 +96,7 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Iets ging fout met post/latest id_only.. Status_code:", resp.status_code)
+                print("Something whent wrong with: post/latest id_only.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
                 
@@ -116,7 +116,7 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Iets ging fout met post/lock.. Status_code:", resp.status_code)
+                print("Something whent wrong with: post/lock.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
                 

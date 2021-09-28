@@ -23,7 +23,7 @@ class Reply:
             try:
                 return resp.json()
             except:
-                print("Iets ging fout met reply\'s/send.. Status_code:", resp.status_code)
+                print("Something whent wrong with: reply\'s/send.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
         return False
@@ -41,7 +41,7 @@ class Reply:
             try:
                 return resp.json()
             except:
-                print("Iets ging fout met reply\'s/delete.. Status_code:", resp.status_code)
+                print("Something whent wrong with: reply\'s/delete.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
         return False

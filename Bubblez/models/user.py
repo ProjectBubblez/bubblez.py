@@ -32,7 +32,7 @@ class User:
             try:
                 return resp.json()
             except:
-                print("Iets ging fout met user/check.. Status_code:", resp.status_code)
+                print("Something whent wrong with: user/check.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
                 
@@ -58,5 +58,6 @@ class User:
             return resp
             
         else:
-            print("Something when\'t wrong! | status code:", resp.status_code, "byte_like content:", resp.content)
-            return resp 
+            print("Something when\'t wrong! | status code:", resp.status_code)
+            print("content:", resp.content)
+            return False  
