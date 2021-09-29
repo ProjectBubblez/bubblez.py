@@ -25,9 +25,15 @@ Check the [example.py](examples.py) file above!
    client.user.checkUser()
 ```
 
+
 #### pingUser()
 ```python3
    client.user.pingUser()
+```
+
+### getUser()
+```python3
+   client.user.getUser()
 ```
 
 <br>
