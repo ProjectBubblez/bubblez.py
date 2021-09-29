@@ -1,5 +1,5 @@
-# Bubblez.py - Api Module for [bubblez](https://bubblez.app)
-A Python Module for the [bubblez](https://bubblez.app) api
+# Bubblez.py - Api Module for [Bubblez.app](https://bubblez.app)
+A Python Module for the [Bubblez.app](https://bubblez.app) api
 
 ## Version's 
 - Python: This one..
