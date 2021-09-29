@@ -1,8 +1,8 @@
-# Bubblez.py - Api Module for 
+# Bubblez.py - Api Module for [bubblez](https://bubblez.app)
 A Python Module for the [bubblez](https://bubblez.app) api
 
 ## Setup
-To use this python module, you need to install ```$ python3 -m pip install Requests ```
+To use this python module, you need to install ```$ python3 -m pip install requests ```
 
 
 ## Examples
@@ -12,11 +12,9 @@ Check the [example.py](examples.py) file above!
 # Docs
 ### Basic Client Setup:
 ```python3
-   
    from bubblez import Bubblez 
    
    client = Bubblez("Your Username", "your token")  # Request your token at: 'https://bubblez.app/applications/api-token'
-    
 ```
 
 <br>
