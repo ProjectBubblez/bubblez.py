@@ -1,5 +1,6 @@
 # Bubblez.py - Api Module for [Bubblez.app](https://bubblez.app)
 A Python Module for the [Bubblez.app](https://bubblez.app) api
+- [Bubblez.app](https://bubblez.app/library#bubblez.py) has approved Bubblez.py
 
 ## Version's 
 - Python: This one..
