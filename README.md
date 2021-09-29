@@ -1,6 +1,13 @@
 # Bubblez.py - Api Module for [bubblez](https://bubblez.app)
 A Python Module for the [bubblez](https://bubblez.app) api
 
+## Version's 
+- Python: This one..
+- Nodejs: [HERE](https://github.com/ProjectBubblez/bubblez.js)
+ ---- 
+- Official Wiki: [Wiki](https://github.com/ProjectBubblez/bubblez.js/blob/master/DOCUMENTATION.md)
+- Website: [Bubblez.app](https://bubblez.app)
+
 ## Setup
 To use this python module, you need to install ```$ python3 -m pip install requests ```
 
