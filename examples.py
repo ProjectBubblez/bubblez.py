@@ -4,7 +4,7 @@ from bubblez import Bubblez
 
 client = Bubblez("foo","Your Api token")
 
-
+# All funcs for posts
 def posts():
     # make a post: 
     client.post.send(
@@ -26,7 +26,7 @@ def posts():
     # and lock it with.. 
     client.post.lock("postid..", locked=True or False)
 
-
+# All funcs for User
 def user():
 
     # ping / check the users token:
@@ -35,6 +35,7 @@ def user():
 
     # more is in the making but still cooking.
 
+# All funcs for reply's 
 def replys():
 
     # send a reply:
@@ -51,6 +52,7 @@ def replys():
         confirm=True
     )
 
+# Future plans:
 def Future_Plans():
 
     '''
