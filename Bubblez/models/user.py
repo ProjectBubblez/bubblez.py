@@ -20,7 +20,7 @@ class User:
             "last_request": self.last_request
         }
     
-    def check(self):
+    def checkUser(self):
         resp = requests.post(
             "https://bubblez.app/api/v1/user/check",
             data={
@@ -35,10 +35,9 @@ class User:
                 print("Something whent wrong with: user/check.. Status_code:", resp.status_code)
                 print("Content: ", resp.content)
                 return False 
-                
         return False
 
-    def ping(self):
+    def pingUser(self):
         if not self.token:
             raise ValueError("Missing token!")
         print("Ping!")

@@ -7,7 +7,7 @@ class Reply:
         self.token = token
         self.username = username
 
-    def send(self, postid:int, message:str, from_:str, nsfw:bool=False):
+    def sendReply(self, postid:int, message:str, from_:str, nsfw:bool=False):
         resp = requests.post(
             "https://bubblez.app/api/v1/reply/send",
             data={
@@ -28,7 +28,7 @@ class Reply:
                 return False 
         return False
 
-    def delete(self, replyid, confirm:bool=True):
+    def deleteReply(self, replyid):
         resp = requests.post(
             "https://bubblez.app/api/v1/reply/delete",
             data={

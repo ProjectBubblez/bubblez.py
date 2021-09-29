@@ -6,7 +6,7 @@ class Post:
     def __init__(self, token) -> None:
         self.token = token
 
-    def delete(self, postid:int):
+    def deletePost(self, postid:int):
         resp = requests.post(
             "https://bubblez.app/api/v1/post/delete", 
             data={
@@ -26,7 +26,7 @@ class Post:
                 
         return False 
 
-    def get(self, postid:int):
+    def getPost(self, postid:int):
         resp = requests.post(
             "https://bubblez.app/api/v1/post/get",
             data={
@@ -45,7 +45,7 @@ class Post:
 
         return False
 
-    def send(self,message:str, from_:str, locked:bool=False, nsfw:bool=False ):
+    def sendPost(self,message:str, from_:str, locked:bool=False, nsfw:bool=False ):
         resp = requests.post(
             "https://bubblez.app/api/v1/post/send",
             data={
@@ -67,7 +67,7 @@ class Post:
                 
         return False
     
-    def latest(self, postid_only:bool=False):
+    def getLatestPost(self, postid_only:bool=False):
         if not postid_only:
             resp = requests.post(
                 "https://bubblez.app/api/v1/post/latest",
@@ -102,7 +102,7 @@ class Post:
                 
         return False
 
-    def lock(self, postid:int, locked:bool=True):
+    def lockPost(self, postid:int, locked:bool=True):
         resp = requests.post(
             "https://bubblez.app/api/v1/post/lock",
             data={
