@@ -20,12 +20,12 @@ Check the [example.py](examples.py) file above!
 <br>
 
 ## User: 
-<b>checkUser:</b>
+#### checkUser()
 ```python3
    client.user.checkUser()
 ```
 
-<b>pingUser:</b>
+#### pingUser()
 ```python3
    client.user.pingUser()
 ```
@@ -33,7 +33,7 @@ Check the [example.py](examples.py) file above!
 <br>
 
 ## Posts:
-<b>sendPost:</b> 
+#### sendPost()
 ```python3
    client.post.sendPost(
         message="The best Website is:...",
@@ -43,21 +43,21 @@ Check the [example.py](examples.py) file above!
     )
 ```
 
-<b>getPost:</b>
+#### getPost()
 ```python3
    client.post.getPost(
       postid=...
    )
 ```
 
-<b>deletePost:</b>
+#### deletePost()
 ```python3
    client.post.deletePost(
       postid=...
    )
 ```
 
-<b>lockPost:</b>
+#### lockPost()
 ```python3
    client.post.lockPost(
       postid=..., 
@@ -65,7 +65,7 @@ Check the [example.py](examples.py) file above!
    )
 ```
 
-<b>getLatestPost:   ``Global``</b>
+#### getLatestPost()   ``Global``
 ```python3
    client.post.getLatestPost(
       postid_only=True or False
@@ -75,7 +75,7 @@ Check the [example.py](examples.py) file above!
 <br>
 
 ### Reply's: 
-<b>sendReply:</b>
+#### sendReply()
 ```python3
    client.reply.sendReply(
         postid=..., 
@@ -85,7 +85,7 @@ Check the [example.py](examples.py) file above!
    )
 ```
 
-<b>deleteReply:</b>
+#### deleteReply()
 ```python3
    client.reply.deleteReply(
         replyid=...
@@ -95,7 +95,7 @@ Check the [example.py](examples.py) file above!
 <br>
    
 ## Blog:
-<b>getLatest:</b>
+#### getLatest()
 ```python3
    client.blog.getLatest()
  ```
