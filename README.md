@@ -4,7 +4,7 @@ A Python Module for the [Bubblez.app](https://bubblez.app) api
 ## Version's 
 - Python: This one..
 - PyPi: [Bubblez.py](https://pypi.org/project/Bubblez.py/0.0.2.1/)
-- Nodejs: [HERE](https://github.com/ProjectBubblez/bubblez.js)
+- Nodejs: [Bubblez.js](https://github.com/ProjectBubblez/bubblez.js)
 - Nodejs Wiki/Documentation: [Wiki/Documentation](https://github.com/ProjectBubblez/bubblez.js/blob/master/DOCUMENTATION.md)
  ---- 
 - Website: [Bubblez.app](https://bubblez.app)
