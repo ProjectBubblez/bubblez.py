@@ -1,4 +1,4 @@
-from bubblez import Bubblez
+from Bubblez import Bubblez
 
 # The setup for the Python Bubblez API (Unofficial)!
 
@@ -32,6 +32,7 @@ def user():
     # ping / check the users token:
     client.user.checkUser()
     client.user.pingUser()
+    client.user.getUser()
 
     # more is in the making but still cooking.
 
@@ -67,4 +68,3 @@ def Future_Plans():
     last prio: making a UI
 
     '''
-
