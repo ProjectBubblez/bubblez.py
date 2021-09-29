@@ -7,7 +7,7 @@ client = Bubblez("foo","Your Api token")
 
 def posts():
     # make a post: 
-    client.post.send(
+    client.post.sendPost(
         message="The best Website is:...",
         from_="This Beauti Python Program",
         locked=True or False,
@@ -15,30 +15,30 @@ def posts():
     )
 
     # delete a post:
-    client.post.delete(postid=...)
+    client.post.deletePost(postid=...)
 
     # get a post:
-    client.post.get(postid=...)
+    client.post.getPost(postid=...)
 
     # get the latest post or only the id of the post
-    client.post.latest(postid_only=True or False)
+    client.post.getLatestPost(postid_only=True or False)
 
     # and lock it with.. 
-    client.post.lock(postid=..., locked=True or False)
+    client.post.lockPost(postid=..., locked=True or False)
 
 
 def user():
 
     # ping / check the users token:
-    client.user.check()
-    client.user.ping()
+    client.user.checkUser()
+    client.user.pingUser()
 
     # more is in the making but still cooking.
 
 def replys():
 
     # send a reply:
-    client.reply.send(
+    client.reply.sendReply(
         postid=..., 
         message="The beauti reply on this beauti message..", 
         from_="from Foo", 
@@ -46,9 +46,15 @@ def replys():
     )
 
     # delete a reply:
-    client.reply.delete(
+    client.reply.deleteReply(
         replyid=...
     )
+
+def blogs():
+
+    # Get latest blog:
+    client.blog.getlatest()
+
 
 def Future_Plans():
 
