@@ -3,7 +3,7 @@ A Python Module for the [Bubblez.app](https://bubblez.app) api
 - [Bubblez.app](https://bubblez.app/library#bubblez.py) has approved Bubblez.py
 
 ## Version's 
-- Python: This one..
+- Python: [Github Bubblez.py](https://github.com/MeesMeijer/bubblez.py)
 - PyPi: [Bubblez.py](https://pypi.org/project/Bubblez.py/0.0.2.1/)
 - Nodejs: [Bubblez.js](https://github.com/ProjectBubblez/bubblez.js)
 - Nodejs Wiki/Documentation: [Wiki/Documentation](https://github.com/ProjectBubblez/bubblez.js/blob/master/DOCUMENTATION.md)
@@ -26,15 +26,18 @@ Required modules: requests
 
 
 ## Examples
-Check the [example.py](examples.py) file above!
+Check the [examples.py](https://github.com/MeesMeijer/bubblez.py/blob/main/examples.py) file above!
 
 
 # Docs
 ### Basic Client Setup:
+If u do not have a token:
+   Request your token at: https://bubblez.app/applications/api-token'
+
 ```python3
    from Bubblez import Bubblez 
    
-   client = Bubblez("Your Username", "your token")  # Request your token at: 'https://bubblez.app/applications/api-token'
+   client = Bubblez("Your Username", "your token")  
 ```
 
 <br>
