@@ -1,11 +1,12 @@
 import requests
+from .classes import bcolors, Times
 
 stand_header = {"Content-Type": "application/x-www-form-urlencoded"}
 
 class Blog:
-    def __init__(self, username, token) -> None:
-        self.token = token
-        self.username = username
+    def __init__(self, client) -> None:
+        self.token = client.token
+        self.username = client.username
     
     def getlatest(self):
         resp = requests.post(
@@ -18,7 +19,7 @@ class Blog:
             try:
                 return resp.json()
             except:
-                print("Something whent wrong with: blog/latest.. Status_code:", resp.status_code)
-                print("Content: ", resp.content)
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: blog/latest.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
                 return False 
         return False

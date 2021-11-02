@@ -1,10 +1,12 @@
 import requests
+from .classes import bcolors, Times
 
 stand_header = {"Content-Type": "application/x-www-form-urlencoded"}
 
 class Post:
-    def __init__(self, token) -> None:
-        self.token = token
+    def __init__(self, client) -> None:
+        self.token = client.token
+        self.username = client.username
 
     def deletePost(self, postid:int):
         resp = requests.post(
@@ -20,8 +22,8 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Something whent wrong with: post/delete.. Status_code:", resp.status_code)
-                print("Content: ", resp.content)
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: post/delete.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
                 return False 
                 
         return False 
@@ -39,8 +41,8 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Something whent wrong with: post/get.. Status_code:", resp.status_code)
-                print("Content: ", resp.content)
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: post/get.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
                 return False 
 
         return False
@@ -61,8 +63,8 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Something whent wrong with: post/send.. Status_code:", resp.status_code)
-                print("Content: ", resp.content)
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: post/send.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
                 return False 
                 
         return False
@@ -80,8 +82,8 @@ class Post:
                 try:
                     return resp.json()
                 except:
-                    print("Something whent wrong with: post/latest.. Status_code:", resp.status_code)
-                    print("Content: ", resp.content)
+                    print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: post/getlatest.. Status_code:", resp.status_code, bcolors.ENDC)
+                    print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
                     return False 
                     
             return False
@@ -96,8 +98,8 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Something whent wrong with: post/latest id_only.. Status_code:", resp.status_code)
-                print("Content: ", resp.content)
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: post/getlatest.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
                 return False 
                 
         return False
@@ -116,11 +118,30 @@ class Post:
             try:
                 return resp.json()
             except:
-                print("Something whent wrong with: post/lock.. Status_code:", resp.status_code)
-                print("Content: ", resp.content)
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: post/lock.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
                 return False 
                 
         return False
+    
+    def editPost(self, postid:int, new_message:str):
+        resp = requests.post(
+            "https://bubblez.app/api/v1/post/edit",
+            data={
+                "postid": postid,
+                "token": self.token,
+                "post": new_message
+            }
+        )
+        if resp.ok:
+            try:
+                return resp.json()
+            except:
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: post/edit.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
+                return False 
+        return False 
+    
 
 
     

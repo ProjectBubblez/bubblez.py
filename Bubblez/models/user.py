@@ -1,7 +1,5 @@
 import requests
-from requests.api import head
-from .post import Post
-from .reply import Reply
+from .classes import bcolors, Times
 
 stand_header = {"Content-Type": "application/x-www-form-urlencoded"}
 
@@ -9,9 +7,9 @@ class User:
     last_request = None 
     stand_header = {"Content-Type": "application/x-www-form-urlencoded"}
 
-    def __init__(self, username, token) -> None:
-        self.username = username
-        self.token = token
+    def __init__(self, client) -> None:
+        self.token = client.token
+        self.username = client.username
     
     def json(self):
         return {
@@ -19,6 +17,24 @@ class User:
             "token": self.token,
             "last_request": self.last_request
         }
+    
+    def getUser(self, username:str):
+        resp = requests.post(
+        "https://bubblez.app/api/v1/user/get",
+        data={
+            "token": self.token,
+            "username": username
+        },
+        headers=self.stand_header
+        )
+        if resp.ok:
+            try:
+                return resp.json()
+            except:
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: user\'s/get.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
+                return False 
+        return False
     
     def checkUser(self):
         resp = requests.post(
@@ -32,15 +48,12 @@ class User:
             try:
                 return resp.json()
             except:
-                print("Something whent wrong with: user/check.. Status_code:", resp.status_code)
-                print("Content: ", resp.content)
+                print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something whent wrong with: user\'s/check.. Status_code:", resp.status_code, bcolors.ENDC)
+                print(f"{bcolors.WARNING} Content: ", resp.content, bcolors.ENDC)
                 return False 
         return False
 
     def pingUser(self):
-        if not self.token:
-            raise ValueError("Missing token!")
-        print("Ping!")
         resp = requests.post(
             "https://bubblez.app/api/v1/user/ping", 
             data={
@@ -49,14 +62,10 @@ class User:
             headers=self.stand_header
         )
         if resp.ok:
-            print("Pong!")
-       
             self.username = resp.json()['username']
-            print(f"username: {self.username}")
-            print("everything is good! , status code: 200")
-            return resp
-            
+            print(f"{bcolors.OKGREEN}[Bubblez.py] {Times.log()} Setting username as: {self.username}", bcolors.ENDC)
+            return resp.json()
         else:
-            print("Something when\'t wrong! | status code:", resp.status_code)
-            print("content:", resp.content)
+            print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Something when\'t wrong! | status code:", resp.status_code)
+            print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Raw content:", resp.content, bcolors.ENDC)
             return False  
