@@ -6,9 +6,11 @@ class Sockets:
         self.client = client
         self.lisener = None 
         self.events = {}
-        self.authenticated = False 
-        self.ping_interval = Interval(self)
+        self.authenticated = False
+        self.ack_ping = True  
         self.verbose = verbose
+        self.ping_interval = Interval(self)
+        
 
     def on(self, event, **kwargs):
         def deco(func):
@@ -19,6 +21,8 @@ class Sockets:
     def _send_ping(self):
         if self.verbose:
             print(f"{bcolors.OKBLUE}[Bubblez.py] {Times.log()} Sending ping!{bcolors.ENDC}")
+        
+        self.ack_ping = False 
         self.lisener.send(
             json.dumps({
                 "message": "HEARTBEAT"
@@ -54,6 +58,7 @@ class Sockets:
         if incomming['message'] == "HEARTBEAT_ACK":
             if self.verbose:
                 print(f"{bcolors.OKBLUE}[Bubblez.py] {Times.log()} Received pong!{bcolors.ENDC}")
+                self.ack_ping = True 
             self.ping_interval.set(self.pingTimeout)
             return
 
@@ -90,7 +95,7 @@ class Sockets:
     def on_close(self, *args):
         print(f"{bcolors.WARNING}[Bubblez.py] {Times.log()} Websockets closed!\nReason: ", args, f"{bcolors.ENDC}")
 
-    def connect(self, verify: bool):
+    def connect(self, verify: bool=False):
         if self.verbose:
             print(f"{bcolors.OKGREEN}[Bubblez.py] {Times.log()} Trying to connect with websockets!{bcolors.ENDC}")
         self.lisener = websocket.WebSocketApp(

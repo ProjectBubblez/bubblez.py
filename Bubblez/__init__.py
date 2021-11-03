@@ -8,13 +8,14 @@ class Bubblez:
     stand_header = {"Content-Type": "application/x-www-form-urlencoded"}
 
     def __init__(self, username, token, verbose=False) -> None:
+        self.token = token 
+        self.username = username
+        self.verbose = verbose
         self.user = self.User(self)
         self.post = self.Post(self)
         self.reply = self.Reply(self)
         self.blog = self.Blog(self)
-        self.token = token 
-        self.username = username
-        self.verbose = verbose
+
 
     class User(user):
         pass 
