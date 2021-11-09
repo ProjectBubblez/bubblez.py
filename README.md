@@ -157,6 +157,9 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 ```
 #### Get the user:
 ##### Command: ```client.user.get()```
+| Arguments | Type      | Value |
+| :---      | :---      | :--- | 
+| username  | ```str``` | The user you want to get | 
 ##### The response: 
 ```class User.json()```
 ```js
@@ -199,6 +202,12 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 ## Posts stuff:
 #### Send a Post:
 ##### Command: ```post = client.post.send()```
+| Arguments | Type      | Value                           |
+| :---      | :---      | :---
+| message   | ```str``` | The message in the post.                   | 
+| from_     | ```str``` | The little message next to the date.       | 
+| locked    | ```bool``` | if True, no-one can reply.                    | 
+| nsfw      | ```bool``` | if True, You need to set DOB (Date Of birth) to see this| 
 ##### The response: 
 ```post.json()```
 ```js
@@ -212,19 +221,13 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 }
 ```
 
-#### Edit a post
-##### Command: ```post = client.post.edit()```
-##### The response: 
-```post.json()```
-```js
-{
-    "200": "Post 522 has been updated"
-}
-```
-
 #### Get a post
 ##### Command: ```post = client.post.get()```
 ##### The response: 
+| Arguments | Type      | Value                           |
+| :---      | :---      | :--- | 
+| postid    | ```int``` | The postid of the post you want to get. | 
+
 ```post.json()```
 ```js
 {
@@ -255,6 +258,10 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 
 #### Delete a Post
 ##### Command: ```post = client.post.delete()```
+| Arguments | Type      | Value                           |
+| :---      | :---      | :--- | 
+| postid    | ```int``` | The id of the post you want to delete. | 
+
 ##### The response: 
 ```post.json()```
 ```js
@@ -265,6 +272,10 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 
 #### Lock a post
 ##### Command: ```post = client.post.lock()```
+| Arguments | Type      | Value                           |
+| :---      | :---      | :--- | 
+| postid    | ```int``` | The post id|  
+| togglelock| ```bool```| If True, no-one can reply on your post! |
 ##### The response:  
 ```post.json()```
 ```js
@@ -281,6 +292,9 @@ or when unlocked
 
 #### Get the latest post ```Global```
 ##### Command: ```post = client.post.get_latest()```
+| Arguments | Type      | Value                           |
+| :---      | :---      | :--- | 
+| id_only    | ```bool``` | If False, than it returns a Post object else only the ID | 
 ##### The response: 
 ```post.json()```
 ```js
@@ -295,6 +309,12 @@ or when unlocked
 ## Reply's: 
 #### Send a reply
 ##### Command: ```reply = client.reply.send()```
+| Arguments | Type      | Value                           |
+| :---      | :---      | :---
+| message   | ```str``` | The message in the reply.                   | 
+| postid    | ```int``` | The postid you want to reply on |  
+| from_     | ```str``` | The little message next to the date.       | 
+| nsfw      | ```bool``` | if True, You need to set DOB (Date Of birth) to see this| 
 ##### The response: 
 ```reply.json()```
 ```js
@@ -310,6 +330,10 @@ or when unlocked
 
 #### Delete a reply
 ##### Command: ```reply = client.reply.delete()```
+| Arguments | Type      | Value                           |
+| :---      | :---      | :---
+| replyid    | ```int``` | The postid you want to reply on |  
+
 ##### The response: 
 ```reply.json()```
 ```js
@@ -320,6 +344,10 @@ or when unlocked
 
 #### Edit a reply()
 ##### Command: ```reply = client.reply.edit()```
+| Arguments | Type      | Value                           |
+| :---      | :---      | :---                  | 
+| replyid   | ```int``` | The postid you want to reply on |  
+| message   | ```str``` | the message than will replace the old one | 
 ##### The response: 
 ```reply.json()```
 ```js
@@ -327,7 +355,6 @@ or when unlocked
     "200": "Reply 1473 has been updated"
 }
 ```
-
 <br>
 
 ## Blog:
