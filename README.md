@@ -101,7 +101,7 @@ Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/exam
       "uuid": null,  
       "username": "DarkMatter",
       "displayname": "DarkMatter",
-      "email": "zakygames701@gmail.com",
+      "email": "zak@bubblez.app",
       "pfp": "https://i.imgur.com/jAOd5gE.png",
       "banner": "https://i.imgur.com/1bZdeBF.png",
       "coins": "85",
