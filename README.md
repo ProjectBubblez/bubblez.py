@@ -92,8 +92,8 @@ Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/exam
 
 ## User stuff: 
 #### Check the user:
-#####Command: ```client.user.check()```
-#####The response: 
+##### Command: ```client.user.check()```
+##### The response: 
 ```class User.json()```
 ```js
 {
@@ -145,8 +145,8 @@ Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/exam
 
 
 #### Ping the user:
-#####Command: ```client.user.ping()```
-#####The response: 
+##### Command: ```client.user.ping()```
+##### The response: 
 ```class User.json()```
 ```js
 {
@@ -156,8 +156,8 @@ Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/exam
 }
 ```
 #### Get the user:
-#####Command: ```client.user.get()```
-#####The response: 
+##### Command: ```client.user.get()```
+##### The response: 
 ```class User.json()```
 ```js
 {
@@ -213,8 +213,8 @@ Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/exam
 ```
 
 #### Edit a post
-#####Command: ```post = client.post.edit()```
-#####The response: 
+##### Command: ```post = client.post.edit()```
+##### The response: 
 ```post.json()```
 ```js
 {
@@ -223,8 +223,8 @@ Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/exam
 ```
 
 #### Get a post
-#####Command: ```post = client.post.get()```
-#####The response: 
+##### Command: ```post = client.post.get()```
+##### The response: 
 ```post.json()```
 ```js
 {
@@ -254,8 +254,8 @@ Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/exam
 ```
 
 #### Delete a Post
-#####Command: ```post = client.post.delete()```
-#####The response: 
+##### Command: ```post = client.post.delete()```
+##### The response: 
 ```post.json()```
 ```js
 {
@@ -264,8 +264,8 @@ Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/exam
 ```
 
 #### Lock a post
-#####Command: ```post = client.post.lock()```
-#####The response:  
+##### Command: ```post = client.post.lock()```
+##### The response:  
 ```post.json()```
 ```js
 {
@@ -280,8 +280,8 @@ or when unlocked
 ```
 
 #### Get the latest post ```Global```
-#####Command: ```post = client.post.get_latest()```
-#####The response: 
+##### Command: ```post = client.post.get_latest()```
+##### The response: 
 ```post.json()```
 ```js
 {
@@ -294,8 +294,8 @@ or when unlocked
 
 ## Reply's: 
 #### Send a reply
-#####Command: ```reply = client.reply.send()```
-#####The response: 
+##### Command: ```reply = client.reply.send()```
+##### The response: 
 ```reply.json()```
 ```js
 {
@@ -309,8 +309,8 @@ or when unlocked
 ```
 
 #### Delete a reply
-#####Command: ```reply = client.reply.delete()```
-#####The response: 
+##### Command: ```reply = client.reply.delete()```
+##### The response: 
 ```reply.json()```
 ```js
 {
@@ -319,8 +319,8 @@ or when unlocked
 ```
 
 #### Edit a reply()
-#####Command: ```reply = client.reply.edit()```
-#####The response: 
+##### Command: ```reply = client.reply.edit()```
+##### The response: 
 ```reply.json()```
 ```js
 {
@@ -332,8 +332,8 @@ or when unlocked
 
 ## Blog:
 #### Get the latest Blog post!()
-#####Command: ```devlog = client.devlog.get_latest()```
-#####The response: 
+##### Command: ```devlog = client.devlog.get_latest()```
+##### The response: 
 ```devlog.json()```
 ```js
 {
