@@ -5,12 +5,15 @@ A Python Module for the [Bubblez.app](https://bubblez.app) api
 ## Version's 
 - Python: [Github Bubblez.py](https://github.com/ProjectBubblez/Bubblez.py)
 - PyPi: [Bubblez.py](https://pypi.org/project/Bubblez.py/0.0.2.1/)
-- Nodejs: [Bubblez.js](https://github.com/ProjectBubblez/bubblez.js)
-- Nodejs Wiki/Documentation: [Wiki/Documentation](https://github.com/ProjectBubblez/bubblez.js/blob/master/DOCUMENTATION.md)
+- Bubblez.js: [Bubblez.js](https://github.com/ProjectBubblez/bubblez.js)
+- Bubblez.js Wiki/Documentation: [Wiki/Documentation](https://github.com/ProjectBubblez/bubblez.js/blob/master/DOCUMENTATION.md)
  ---- 
-- Website: [Bubblez.app](https://bubblez.app)
+- Live Website: [Bubblez.app](https://bubblez.app)
+- Canary Website [Bubblez.app](https://canary.bubblez.app/)
 
 ## Setup
+######For this Api Module you need to have your api token!
+######If you dont? Than request it [here.](https://bubblez.app/applications/api-token)
 
 Pip install:
 ```bash
@@ -18,152 +21,84 @@ Pip install:
 ```
  --- 
 
-Required modules: requests
+If you dont use the Pypi, than you need to manuel install Requests
 ```bash 
-   $ python3 -m pip install requests 
+   python -m pip install requests 
+```
+
+#### ```Note```: 
+If you use Windows and can not connected to the websockets because a SSL problem with python: <b>This is vulnerable for man-in-middle attacks!!</b>
+```python3
+socket.connect(verify=False)
 ```
 
 
 ## Examples
-Check the [examples.py](https://github.com/MeesMeijer/bubblez.py/blob/main/examples.py) file above!
+
+Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/examples) for api and websockets
 
 
-# Docs
+# Docs 
 ### Basic Client Setup:
-If u do not have a token:
-   Request your token at: https://bubblez.app/applications/api-token'
 
 ```python3
-   from Bubblez import Bubblez 
-   
-   client = Bubblez("Your Username", "your token")  
+    from Bubblez import Bubblez 
+
+    client = Bubblez("Live token") 
+
+    'If you want to post to canary:'
+    client = Bubblez("Canary token", use_canary=True)
+
 ```
 ### Basic Client Setup with websockets:
 ```python3
-   from Bubblez import Bubblez 
-   from Bubblez import Socket, Events
-   
-   client = Bubblez("Your Username", "your token")
-   socket = Socket(client)
-   
-    @socket.on(Events.NewDevlog)
-    def new_devlog(devlog):
-        devlog = {
-            "200": "latest Blog Post",
-            "blogid": "",
-            "blogposter_username": "",
-            "blogposter_displayname": "",
-            "blogposter_pfp": "",
-            "blogcontent": "",
-            "blogdate": "1990-01-01 00:00:00"
-        }
+    from Bubblez import Bubblez
+    from Bubblez.socket import Socket, Events, classes
 
+
+    client = Bubblez("Your token", True, True)
+    socket = Socket(client)
+
+
+    @socket.on(Events.NewLike)
+    def new_like(type, user: classes.User, post: classes.Post):
+        print(type, user.username, post.message)
+        "Do Your thing"
+        
     @socket.on(Events.NewPost)
-    def new_post(post):
-        post = {
-             
-                "200": "Found post",
-                "postid": "....",
-                "username": "....",
-                "pfp": "https://cds.bubblez.app/v2/get/bblz_606df57511f60/display/256",
-                "content": "why is working not working? \r\n",
-                "from": None,
-                "locked": "false",
-                "pnsfw": "false",
-                "edited": None,
-                "post_date": "2021-11-02 14:59:46",
-                "replies": [
-                    {
-                        "replyid": "....",
-                        "username": "MeeSoS",
-                        "pfp": "https://cds.bubblez.app/v2/get/bblz_606df57511f60/display/256",
-                        "content": "or is it?",
-                        "from": None,
-                        "rnsfw": None,
-                        "deleted": None,
-                        "edit_date": None,
-                        "reply_date": "2021-11-02 15:01:00"
-                    },
-                    {
-                        "replyid": "....",
-                        "username": "MeeSoS",
-                        "pfp": "https://cds.bubblez.app/v2/get/bblz_606df57511f60/display/256",
-                        "content": "this is test\r\n",
-                        "from": None,
-                        "rnsfw": None,
-                        "deleted": None,
-                        "edit_date": None,
-                        "reply_date": "2021-11-02 16:06:15"
-                    }
-                ]
-            }
+    def new_post(post: classes.Post):
+        print(post.json())
+        "Do Your thing"
+
+    @socket.on(Events.NewFollower)
+    def new_fol(user: classes.User):
+        print(user.json())
+        "Do Your thing"
 
     @socket.on(Events.NewReply)
-    def new_post(post, reply):
-        post = {
-             
-                "200": "Found post",
-                "postid": "....",
-                "username": "....",
-                "pfp": "https://cds.bubblez.app/v2/get/bblz_606df57511f60/display/256",
-                "content": "why is working not working? \r\n",
-                "from": None,
-                "locked": "false",
-                "pnsfw": "false",
-                "edited": None,
-                "post_date": "2021-11-02 14:59:46",
-                "replies": [
-                    {
-                        "replyid": "....",
-                        "username": "MeeSoS",
-                        "pfp": "https://cds.bubblez.app/v2/get/bblz_606df57511f60/display/256",
-                        "content": "or is it?",
-                        "from": None,
-                        "rnsfw": None,
-                        "deleted": None,
-                        "edit_date": None,
-                        "reply_date": "2021-11-02 15:01:00"
-                    },
-                    {
-                        "replyid": "....",
-                        "username": "MeeSoS",
-                        "pfp": "https://cds.bubblez.app/v2/get/bblz_606df57511f60/display/256",
-                        "content": "this is test\r\n",
-                        "from": None,
-                        "rnsfw": None,
-                        "deleted": None,
-                        "edit_date": None,
-                        "reply_date": "2021-11-02 16:06:15"
-                    }
-                ]
-            }
-        reply = {
-            "replyid": "....",
-            "username": "MeeSoS",
-            "pfp": "https://cds.bubblez.app/v2/get/bblz_606df57511f60/display/256",
-            "content": "this is test\r\n",
-            "from": None,
-            "rnsfw": None,
-            "deleted": None,
-            "edit_date": None,
-            "reply_date": "2021-11-02 16:06:15"
-        }
-        
+    def new_fol(post: classes.Post, reply: classes.Reply):
+        print(post.message, reply.message)
+        "Do Your thing"
+
+    @socket.on(Events.UnFollowed)
+    def un_fol(user: classes.User):
+        print(user.json())
+        "Do Your thing"
+
     socket.connect()
    
 ```
 <br>
 
 ## User stuff: 
-### checkUser()
-```python3
-   client.user.checkUser()
-```
-The response: 
-```python3
+#### Check the user:
+#####Command: ```client.user.check()```
+#####The response: 
+```class User.json()```
+```js
 {
       "200": "Found user",
-      "uuid": None,  
+      "uuid": null,  
       "username": "DarkMatter",
       "displayname": "DarkMatter",
       "email": "zakygames701@gmail.com",
@@ -176,9 +111,9 @@ The response:
       "booster": "true",
       "bio": "We don't know much about them, but we're sure DarkMatter is great.",
       "nsfw": "false",
-      "dob": None,
+      "dob": null,
       "pronoun": "hehim",
-      "ban": None,
+      "ban": null,
       "created_at": "2019-10-21 07:40:23",
       "last_posted": "2021-07-30 01:19:36",
       "posts": [
@@ -189,7 +124,7 @@ The response:
               "content": "API is cool",
               "from": "API testing",
               "locked": "false",
-              "edited": None,
+              "edited": null,
               "post_date": "2021-07-30 12:18:31"
           }
       ],
@@ -201,7 +136,7 @@ The response:
               "nsfw": "false",
               "content": "Cool reply with the API",
               "from": "API testing",
-              "edited": None,
+              "edited": null,
               "reply_date": "2021-07-30 12:49:12"
           }
       ]
@@ -209,24 +144,22 @@ The response:
 ```
 
 
-### pingUser()
-```python3
-   client.user.pingUser()
-```
-The response: 
-```python3
+#### Ping the user:
+#####Command: ```client.user.ping()```
+#####The response: 
+```class User.json()```
+```js
 {
     "200": "Pong",
     "username": "DarkMatter",
     "online_status": "2021-07-30 13:03:18"
 }
 ```
-### getUser()
-```python3
-   client.user.getUser()
-```
-The response: 
-```python3
+#### Get the user:
+#####Command: ```client.user.get()```
+#####The response: 
+```class User.json()```
+```js
 {
     "200": "Found user",
     "uuid": null,
@@ -242,7 +175,7 @@ The response:
     "booster": "true",
     "bio": "the best bubblez dev.",
     "nsfw": "false",
-    "pronoun": "none",
+    "pronoun": "null",
     "ban": null,
     "created_at": "2019-10-22 12:04:01",
     "last_posted": null,
@@ -264,17 +197,11 @@ The response:
 <br>
 
 ## Posts stuff:
-### sendPost()
-```python3
-   client.post.sendPost(
-        message="The best Website is:...",
-        from_="This Beauti Python Program",
-        locked=True or False,
-        nsfw=True or False,
-    )
-```
-The response: 
-```python3
+#### Send a Post:
+##### Command: ```post = client.post.send()```
+##### The response: 
+```post.json()```
+```js
 {
     "200": "message sent",
     "post": "API is cool",
@@ -285,28 +212,21 @@ The response:
 }
 ```
 
-### editPost()
-```python3
-   client.post.editPost(
-      new_message='The edited message',
-      postid=1234
-   )
-```
-The response:
-```python3
+#### Edit a post
+#####Command: ```post = client.post.edit()```
+#####The response: 
+```post.json()```
+```js
 {
     "200": "Post 522 has been updated"
 }
 ```
 
-### getPost()
-```python3
-   client.post.getPost(
-      postid=...
-   )
-```
-The response: 
-```python3
+#### Get a post
+#####Command: ```post = client.post.get()```
+#####The response: 
+```post.json()```
+```js
 {
     "200": "Found post",
     "postid": "522",
@@ -333,45 +253,37 @@ The response:
 }
 ```
 
-### deletePost()
-```python3
-   client.post.deletePost(
-      postid=...
-   )
-```
-The response: 
-```python3
+#### Delete a Post
+#####Command: ```post = client.post.delete()```
+#####The response: 
+```post.json()```
+```js
 {
     "200": "Post 522 has been deleted"
 }
 ```
 
-### lockPost()
-```python3
-   client.post.lockPost(
-      postid=..., 
-      locked=True or False
-   )
-```
-The response: 
-```python3
+#### Lock a post
+#####Command: ```post = client.post.lock()```
+#####The response:  
+```post.json()```
+```js
 {
     "200": "Post 522 has been locked"
 }
-or 
+```
+or when unlocked
+```js
 {
     "200": "Post 522 has been unlocked"
 }
 ```
 
-### getLatestPost()   ``Global``
-```python3
-   client.post.getLatestPost(
-      postid_only=True or False
-   )
-```
-The response: 
-```python3
+#### Get the latest post ```Global```
+#####Command: ```post = client.post.get_latest()```
+#####The response: 
+```post.json()```
+```js
 {
     "200": "latest Post",
     "postid": "522"
@@ -381,17 +293,11 @@ The response:
 <br>
 
 ## Reply's: 
-### sendReply()
-```python3
-   client.reply.sendReply(
-        postid=..., 
-        message="The beauti reply on this beauti message..", 
-        from_="from python", 
-        nsfw=True or False
-   )
-```
-The response: 
-```python3
+#### Send a reply
+#####Command: ```reply = client.reply.send()```
+#####The response: 
+```reply.json()```
+```js
 {
     "200": "reply sent",
     "reply": "Cool reply with the API",
@@ -402,28 +308,21 @@ The response:
 }
 ```
 
-### deleteReply()
-```python3
-   client.reply.deleteReply(
-        replyid=...
-   )
-```
-The response: 
-```python3
+#### Delete a reply
+#####Command: ```reply = client.reply.delete()```
+#####The response: 
+```reply.json()```
+```js
 {
     "200": "reply 1473 has been deleted"
 }
 ```
 
-### editReply()
-```python3
-   client.reply.editReply(
-        replyid=...,
-        new_reply="edited reply"
-   )
-```
-The response: 
-```python3
+#### Edit a reply()
+#####Command: ```reply = client.reply.edit()```
+#####The response: 
+```reply.json()```
+```js
 {
     "200": "Reply 1473 has been updated"
 }
@@ -432,12 +331,11 @@ The response:
 <br>
 
 ## Blog:
-### getLatest()
-```python3
-   client.blog.getLatest()
-```
-The response: 
-```python3
+#### Get the latest Blog post!()
+#####Command: ```devlog = client.devlog.get_latest()```
+#####The response: 
+```devlog.json()```
+```js
 {
     "200": "latest Blog Post",
     "blogid": "",
@@ -448,34 +346,3 @@ The response:
     "blogdate": "1990-01-01 00:00:00"
 }
 ```
-
-<br>
-
-## Websockets 
-### A full websocket lisener: 
-```python3
-
-   client = Bubblez("username", "token",)
-   socket = Socket(client)
-
-   @socket.on(Socket.Events.NewPost)
-   def new_post(post):
-       print(post)
-
-   @socket.on(Socket.Events.NewReply)
-   def new_reply(post, reply):
-       print(post, reply)
-      
-   @socket.on(Socket.Events.NewDevlog)
-   def new_devlog(devlog):
-       print(devlog)
-
-   socket.connect()
-```
-### If you use windows and websockets give a SSL error: 
-```python3
-   socket.connect(verify=False)
-```
-### ``Note``: 
-   This is vulnerable for man-in-middle attacks!! 
-
