@@ -97,50 +97,50 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 ```class User.json()```
 ```js
 {
-      "200": "Found user",
-      "uuid": null,  
-      "username": "DarkMatter",
-      "displayname": "DarkMatter",
-      "email": "....",
-      "pfp": "https://i.imgur.com/jAOd5gE.png",
-      "banner": "https://i.imgur.com/1bZdeBF.png",
-      "coins": "85",
-      "rank": "founder",
-      "eventr": "darkmatter",
-      "patreon": "true",
-      "booster": "true",
-      "bio": "We don't know much about them, but we're sure DarkMatter is great.",
-      "nsfw": "false",
-      "dob": null,
-      "pronoun": "hehim",
-      "ban": null,
-      "created_at": "2019-10-21 07:40:23",
-      "last_posted": "2021-07-30 01:19:36",
-      "posts": [
-          {
-              "postid": "522",
-              "username": "DarkMatter",
-              "nsfw": "false",
-              "content": "API is cool",
-              "from": "API testing",
-              "locked": "false",
-              "edited": null,
-              "post_date": "2021-07-30 12:18:31"
-          }
-      ],
-      "replies": [
-          {
-              "replyid": "1473",
-              "postid": "522",
-              "username": "DarkMatter",
-              "nsfw": "false",
-              "content": "Cool reply with the API",
-              "from": "API testing",
-              "edited": null,
-              "reply_date": "2021-07-30 12:49:12"
-          }
-      ]
-  }
+    "200": "Found user",
+    "uuid": null,
+    "username": "DarkMatter",
+    "displayname": "DarkMatter",
+    "email": "zak@bubblez.app",
+    "pfp": "https://i.imgur.com/jAOd5gE.png",
+    "banner": "https://i.imgur.com/1bZdeBF.png",
+    "coins": "85",
+    "rank": "founder",
+    "eventr": "darkmatter",
+    "patreon": "true",
+    "booster": "true",
+    "bio": "We don't know much about them, but we're sure DarkMatter is great.",
+    "nsfw": "false",
+    "dob": null,
+    "pronoun": "hehim",
+    "ban": null,
+    "created_at": "2019-10-21 07:40:23",
+    "last_posted": "2021-07-30 01:19:36",
+    "posts": [
+        {
+            "postid": "522",
+            "username": "DarkMatter",
+            "nsfw": "false",
+            "content": "API is cool",
+            "from": "API testing",
+            "locked": "false",
+            "edited": null,
+            "post_date": "2021-07-30 12:18:31"
+        }
+    ],
+    "replies": [
+        {
+            "replyid": "1473",
+            "postid": "522",
+            "username": "DarkMatter",
+            "nsfw": "false",
+            "content": "Cool reply with the API",
+            "from": "API testing",
+            "edited": null,
+            "reply_date": "2021-07-30 12:49:12"
+        }
+    ]
+}
 ```
 
 
@@ -175,7 +175,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
     "booster": "true",
     "bio": "the best bubblez dev.",
     "nsfw": "false",
-    "pronoun": "null",
+    "pronoun": "none",
     "ban": null,
     "created_at": "2019-10-22 12:04:01",
     "last_posted": null,
