@@ -3,17 +3,17 @@ A Python Module for the [Bubblez.app](https://bubblez.app) api
 - [Bubblez.app](https://bubblez.app/library#bubblez.py) has approved Bubblez.py
 
 ## Version's 
-- Python: [Github Bubblez.py](https://github.com/ProjectBubblez/Bubblez.py)
-- PyPi: [Bubblez.py](https://pypi.org/project/Bubblez.py/0.0.2.1/)
-- Bubblez.js: [Bubblez.js](https://github.com/ProjectBubblez/bubblez.js)
+- Python: [Github Bubblez.py](https://github.com/ProjectBubblez/bubblez.py)
+- PyPi: [bubblez.py](https://pypi.org/project/bubblez.py/)
+- Bubblez.js: [bubblez.js](https://github.com/ProjectBubblez/bubblez.js)
 - Bubblez.js Wiki/Documentation: [Wiki/Documentation](https://github.com/ProjectBubblez/bubblez.js/blob/master/DOCUMENTATION.md)
  ---- 
-- Live Website: [Bubblez.app](https://bubblez.app)
-- Canary Website [Bubblez.app](https://canary.bubblez.app/)
+- Live Website: [bubblez.app](https://bubblez.app)
+- Canary Website [bubblez.app](https://canary.bubblez.app/)
 
 ## Setup
-######For this Api Module you need to have your api token!
-######If you dont? Than request it [here.](https://bubblez.app/applications/api-token)
+###### For this Api Module you need to have your api token!
+###### If you dont? Than request it [here.](https://bubblez.app/applications/api-token)
 
 Pip install:
 ```bash
@@ -35,7 +35,7 @@ socket.connect(verify=False)
 
 ## Examples
 
-Check the [examples](https://github.com/ProjectBubblez/Bubblez.py/tree/main/examples) for api and websockets
+Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/examples) for api and websockets
 
 
 # Docs 
