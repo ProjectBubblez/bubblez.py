@@ -11,7 +11,6 @@ class User:
     def __init__(self, client, data) -> None:
         self.client = client
         self.raw_json = data 
-        self.email = data['email']
         self.dob = data['dob']
             
         self.uuid = data['uuid']
