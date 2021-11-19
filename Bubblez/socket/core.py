@@ -8,6 +8,7 @@ from ..classes.socket.receive.Post import Post as ReceivedPost
 from ..classes.socket.receive.Reply import Reply as ReceivedReply
 from ..classes.socket.receive.Likes import Likes as ReceivedLike
 from ..classes.socket.receive.Follower import Follower as ReceivedFollower
+from ..classes.socket.receive.Edit import Edit as ReceivedEdit
 
 import websocket, json, time, _thread, ssl, functools
 
@@ -63,8 +64,9 @@ class Socket:
 
     def on_message(self, incomming):
         incomming = json.loads(incomming)
-        message = incomming['message']
-        if message == "AUTHENTICATION_REQUIRED":
+        event = incomming['message']
+
+        if event == "AUTHENTICATION_REQUIRED":
             if self.client.verbose:
                 print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Trying to authenticated!", Color.ENDC)
             self.ws.send(json.dumps(({
@@ -74,19 +76,19 @@ class Socket:
             })))
             return 
             
-        elif message == "AUTHENTICATED":
+        elif event == "AUTHENTICATED":
             self.mili_bt_ping = incomming['heartbeatinterval']
             self.ping()
             self.ping_thread.setPing(self.mili_bt_ping)
             return 
 
-        elif message == "HEARTBEAT_ACK":
+        elif event == "HEARTBEAT_ACK":
             if self.client.verbose:
                 print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Received Pong!", Color.ENDC)
             self.ping_thread.setPing(self.mili_bt_ping)
             return 
         
-        elif message == "HEARTBEAT_MISSED":
+        elif event == "HEARTBEAT_MISSED":
             if self.client.verbose:
                 print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Missed heartbeat!", Color.ENDC)
             self.ping()
@@ -94,50 +96,70 @@ class Socket:
             self.ping_thread.setPing(self.mili_bt_ping)
             return 
 
-        elif message == "NEW_POST":
-            if message in self.events:
-                self.events[message](
+        elif event == "NEW_POST":
+            if event in self.events:
+                self.events[event](
                         post=ReceivedPost(self.client, incomming['postdata'])
                     )
                 return 
 
-        elif message == "NEW_REPLY":
-            if message in self.events:
-                self.events[message](
+        elif event == "NEW_REPLY":
+            if event in self.events:
+                self.events[event](
                         post=ReceivedPost(self.client, incomming['postdata']), 
                         reply=ReceivedReply(self.client, incomming['replydata'])
                         )
                 return
 
-        elif message == "NEW_DEVLOG":
-            if message in self.events:
-                self.events[message](
+        elif event == "NEW_DEVLOG":
+            if event in self.events:
+                self.events[event](
                         devlog=ReceivedDevlog(self.client, incomming['postdata'])
                     )
                 return
 
-        elif message == "NEW_LIKE":
-            if message in self.events:
-                self.events[message](
+        elif event == "NEW_LIKE":
+            if event in self.events:
+                self.events[event](
                         type=incomming['type'], 
                         user=ReceivedUser(self.client, incomming['userdata']), 
                         post=ReceivedPost(self.client, incomming['postdata'])
                     )
                 return
 
-        elif message == "NEW_FOLLOWER":
-            if message in self.events:
-                self.events[message](
+        elif event == "NEW_FOLLOWER":
+            if event in self.events:
+                self.events[event](
                         user=ReceivedUser(self.client, incomming['userdata'])
                     )
                 return
 
-        elif message == "UNFOLLOWED":
-            if message in self.events:
-                self.events[message](
+        elif event == "UNFOLLOWED":
+            if event in self.events:
+                self.events[event](
                         user=ReceivedUser(self.client, incomming['userdata'])
                     )
                 return
+        elif event == "NEW_EDIT":
+            if event in self.events:
+                post, reply = None, None 
+                if incomming['type'] == "post": post = ReceivedPost(self.client, incomming['postdata'])
+                if incomming['type'] == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
+                self.events[event](
+                    user=ReceivedUser(self.client, incomming['userdata']), type=incomming['type'], post=post, reply=reply
+                )
+                return
+
+        elif event == "UNLIKE":
+            if event in self.events:
+                post, reply = None, None 
+                if incomming['type'] == "post": post = ReceivedPost(self.client, incomming['postdata'])
+                if incomming['type'] == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
+
+                self.events[event](
+                    user=ReceivedUser(self.client, incomming['userdata']), type=incomming['type'], post=post, reply=reply
+                )
+                return 
         if self.client.verbose:
             print(f"{Color.WARNING}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()}", incomming, f" was not fetched!{Color.ENDC}")
     

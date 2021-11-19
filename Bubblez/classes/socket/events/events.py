@@ -11,3 +11,7 @@ class Events:
         def name(self): return "NEW_FOLLOWER"
     class UnFollowed:
         def name(self): return "UNFOLLOWED"
+    class NewEdit:
+        def name(self): return "NEW_EDIT"
+    class Unlike:
+        def name(self): return "UNLIKE"

@@ -6,7 +6,7 @@ def User():
     "Check the token and get the data!"
     client.user.check()
 
-    "Get a user with their/your username!"
+    "Get a user with there/your username!"
     client.user.get(username="Username")
 
     "Set the status online on https://bubblez.app/"

@@ -31,4 +31,14 @@ def un_fol(user: classes.User):
     print(user.json())
     "Do Your thing"
 
+@socket.on(Events.NewEdit)
+def new_edit(user: classes.User, type: str, post: classes.Post, reply: classes.Reply):        
+    print(user.json(), type, post.json(), reply.json())
+    "Do Your thing"
+
+@socket.on(Events.Unlike)
+def un_linke(user: classes.User, type: str, post: classes.Post, reply: classes.Reply):
+    print(user.json(), type, post.json(), reply.json())
+    "Do Your thing"
+
 socket.connect()

@@ -9,11 +9,11 @@ A Python Module for the [Bubblez.app](https://bubblez.app) api
 - Bubblez.js Wiki/Documentation: [Wiki/Documentation](https://github.com/ProjectBubblez/bubblez.js/blob/master/DOCUMENTATION.md)
  ---- 
 - Live Website: [bubblez.app](https://bubblez.app)
-- Canary Website [bubblez.app](https://canary.bubblez.app/)
+- Canary Website [canary.bubblez.app](https://canary.bubblez.app/)
 
 ## Setup
-###### For this Api Module you need to have your api token!
-###### If you dont? Than request it [here.](https://bubblez.app/applications/api-token)
+##### For this Api Module you need to have your api token!
+##### If you dont? Than request it [here.](https://bubblez.app/applications/api-token)
 
 Pip install:
 ```bash
@@ -27,11 +27,12 @@ If you dont use the Pypi, than you need to manuel install Requests
 ```
 
 #### ```Note```: 
-If you use Windows and can not connected to the websockets because a SSL problem with python: <b>This is vulnerable for man-in-middle attacks!!</b>
+If you use Windows and can not connected to the websockets because a SSL problem with python: 
 ```python3
 socket.connect(verify=False)
 ```
-
+##### <b>This is vulnerable for man-in-middle attacks!!</b>
+<br>
 
 ## Examples
 
@@ -50,7 +51,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
     client = Bubblez("Canary token", use_canary=True)
 
 ```
-### Basic Client Setup with websockets:
+### Client Setup with all the websocket-events:
 ```python3
     from Bubblez import Bubblez
     from Bubblez.socket import Socket, Events, classes
@@ -71,30 +72,40 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
         "Do Your thing"
 
     @socket.on(Events.NewFollower)
-    def new_fol(user: classes.User):
+    def new_follower(user: classes.User):
         print(user.json())
         "Do Your thing"
 
     @socket.on(Events.NewReply)
-    def new_fol(post: classes.Post, reply: classes.Reply):
+    def new_reply(post: classes.Post, reply: classes.Reply):
         print(post.message, reply.message)
         "Do Your thing"
 
     @socket.on(Events.UnFollowed)
-    def un_fol(user: classes.User):
+    def un_follower(user: classes.User):
         print(user.json())
+        "Do Your thing"
+
+    @socket.on(Events.NewEdit)
+    def new_edit(user: classes.User, type: str, post: classes.Post, reply: classes.Reply):        
+        print(user.json(), type, post.json(), reply.json())
+        "Do Your thing"
+
+    @socket.on(Events.Unlike)
+    def un_linke(user: classes.User, type: str, post: classes.Post, reply: classes.Reply):
+        print(user.json(), type, post.json(), reply.json())
         "Do Your thing"
 
     socket.connect()
    
 ```
 <br>
-
+# All the API calls:
 ## User stuff: 
 #### Check the user:
-##### Command: ```client.user.check()```
+##### Command: ```user = client.user.check()```
 ##### The response: 
-```class User.json()```
+```user.json()```
 ```js
 {
     "200": "Found user",
@@ -144,9 +155,9 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 
 
 #### Ping the user:
-##### Command: ```client.user.ping()```
+##### Command: ```user = client.user.ping()```
 ##### The response: 
-```class User.json()```
+```user.json() ```
 ```js
 {
     "200": "Pong",
@@ -155,12 +166,12 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 }
 ```
 #### Get the user:
-##### Command: ```client.user.get()```
+##### Command: ```user = client.user.get()```
 | Arguments | Type      | Value |
 | :---      | :---      | :--- | 
 | username  | ```str``` | The user you want to get | 
 ##### The response: 
-```class User.json()```
+```user.json() ```
 ```js
 {
     "200": "Found user",
@@ -372,3 +383,5 @@ or when unlocked
     "blogdate": "1990-01-01 00:00:00"
 }
 ```
+
+### 
