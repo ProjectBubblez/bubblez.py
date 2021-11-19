@@ -100,7 +100,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
    
 ```
 <br>
-# All the API calls:
+
 ## User stuff: 
 #### Check the user:
 ##### Command: ```user = client.user.check()```
