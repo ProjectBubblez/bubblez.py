@@ -1,3 +1,4 @@
+import traceback
 from ..classes.Color import Color
 from ..classes.Log import logTime
 from ..classes.socket.events.events import Events
@@ -61,129 +62,132 @@ class Socket:
         )
         self.ping_send = True 
 
-
-    def on_message(self, incomming):
-        incomming = json.loads(incomming)
-        event = incomming['message']
-
-        if event == "AUTHENTICATION_REQUIRED":
-            if self.client.verbose:
-                print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Trying to authenticated!", Color.ENDC)
-            self.ws.send(json.dumps(({
-                    "message": "SEND_TOKEN",
-                    "token": self.client.token,
-                    "version": 1
-            })))
-            return 
-            
-        elif event == "AUTHENTICATED":
-            self.mili_bt_ping = incomming['heartbeatinterval']
-            self.ping()
-            self.ping_thread.setPing(self.mili_bt_ping)
-            return 
-
-        elif event == "HEARTBEAT_ACK":
-            if self.client.verbose:
-                print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Received Pong!", Color.ENDC)
-            self.ping_thread.setPing(self.mili_bt_ping)
-            return 
-        
-        elif event == "HEARTBEAT_MISSED":
-            if self.client.verbose:
-                print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Missed heartbeat!", Color.ENDC)
-            self.ping()
-            self.mili_bt_ping = incomming['heartbeatinterval']
-            self.ping_thread.setPing(self.mili_bt_ping)
-            return 
-
-        elif event == "NEW_POST":
-            if event in self.events:
-                self.events[event](
-                        post=ReceivedPost(self.client, incomming['postdata'])
-                    )
-                return 
-
-        elif event == "NEW_REPLY":
-            if event in self.events:
-                self.events[event](
-                        post=ReceivedPost(self.client, incomming['postdata']), 
-                        reply=ReceivedReply(self.client, incomming['replydata'])
-                        )
-                return
-
-        elif event == "NEW_DEVLOG":
-            if event in self.events:
-                self.events[event](
-                        devlog=ReceivedDevlog(self.client, incomming['postdata'])
-                    )
-                return
-
-        elif event == "NEW_LIKE":
-            if event in self.events:
-                self.events[event](
-                        type=incomming['type'], 
-                        user=ReceivedUser(self.client, incomming['userdata']), 
-                        post=ReceivedPost(self.client, incomming['postdata'])
-                    )
-                return
-
-        elif event == "NEW_FOLLOWER":
-            if event in self.events:
-                self.events[event](
-                        user=ReceivedUser(self.client, incomming['userdata'])
-                    )
-                return
-
-        elif event == "UNFOLLOWED":
-            if event in self.events:
-                self.events[event](
-                        user=ReceivedUser(self.client, incomming['userdata'])
-                    )
-                return
-        elif event == "NEW_EDIT":
-            if event in self.events:
-                post, reply = None, None 
-                if incomming['type'] == "post": post = ReceivedPost(self.client, incomming['postdata'])
-                if incomming['type'] == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
-                self.events[event](
-                    user=ReceivedUser(self.client, incomming['userdata']), type=incomming['type'], post=post, reply=reply
-                )
-                return
-
-        elif event == "UNLIKE":
-            if event in self.events:
-                post, reply = None, None 
-                if incomming['type'] == "post": post = ReceivedPost(self.client, incomming['postdata'])
-                if incomming['type'] == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
-
-                self.events[event](
-                    user=ReceivedUser(self.client, incomming['userdata']), type=incomming['type'], post=post, reply=reply
-                )
-                return 
-        if self.client.verbose:
-            print(f"{Color.WARNING}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()}", incomming, f" was not fetched!{Color.ENDC}")
-    
-    def on_error(self, *args, **kwargs):
-        print(f"{Color.FAIL}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Error with websockets \nClose code:", args, kwargs, f"{Color.ENDC}")
-    
-    def on_open(self, *args, **kwargs):
-        print(f"{Color.OKGREEN}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Connected with the websockets!{Color.ENDC}")
-
-    def on_close(self, close_status_code, close_msg):
-        print(f"{Color.WARNING}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Websockets closed!\nClose code:", close_status_code,"  Close msg:", close_msg, f"{Color.ENDC}")
-       
     def connect(self, verify:bool=False):
-        if self.client.verbose:
-            print(f"{Color.OKGREEN}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Trying to connect with websockets!{Color.ENDC}")
+        def on_message(ws: websocket.WebSocketApp, incomming):
+            incomming = json.loads(incomming)
+            event = incomming['message']
+
+            if event == "AUTHENTICATION_REQUIRED":
+                if self.client.verbose:
+                    print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Trying to authenticated!", Color.ENDC)
+                self.ws.send(json.dumps(({
+                        "message": "SEND_TOKEN",
+                        "token": self.client.token,
+                        "version": 1
+                })))
+                return 
+                
+            elif event == "AUTHENTICATED":
+                self.mili_bt_ping = incomming['heartbeatinterval']
+                self.ping()
+                self.ping_thread.setPing(self.mili_bt_ping)
+                return 
+
+            elif event == "HEARTBEAT_ACK":
+                if self.client.verbose:
+                    print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Received Pong!", Color.ENDC)
+                self.ping_thread.setPing(self.mili_bt_ping)
+                return 
+            
+            elif event == "HEARTBEAT_MISSED":
+                if self.client.verbose:
+                    print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Missed heartbeat!", Color.ENDC)
+                self.ping()
+                self.mili_bt_ping = incomming['heartbeatinterval']
+                self.ping_thread.setPing(self.mili_bt_ping)
+                return 
+
+            elif event == "NEW_POST":
+                if event in self.events:
+                    self.events[event](
+                            post=ReceivedPost(self.client, incomming['postdata'])
+                        )
+                    return 
+
+            elif event == "NEW_REPLY":
+                if event in self.events:
+                    self.events[event](
+                            post=ReceivedPost(self.client, incomming['postdata']), 
+                            reply=ReceivedReply(self.client, incomming['replydata'])
+                            )
+                    return
+
+            elif event == "NEW_DEVLOG":
+                if event in self.events:
+                    self.events[event](
+                            devlog=ReceivedDevlog(self.client, incomming['postdata'])
+                        )
+                    return
+
+            elif event == "NEW_LIKE":
+                if event in self.events:
+                    self.events[event](
+                            type=incomming['type'], 
+                            user=ReceivedUser(self.client, incomming['userdata']), 
+                            post=ReceivedPost(self.client, incomming['postdata'])
+                        )
+                    return
+
+            elif event == "NEW_FOLLOWER":
+                if event in self.events:
+                    self.events[event](
+                            user=ReceivedUser(self.client, incomming['userdata'])
+                        )
+                    return
+
+            elif event == "UNFOLLOWED":
+                if event in self.events:
+                    self.events[event](
+                            user=ReceivedUser(self.client, incomming['userdata'])
+                        )
+                    return
+
+            elif event == "NEW_EDIT":
+                if event in self.events:
+                    post, reply = None, None 
+                    if incomming['type'] == "post": post = ReceivedPost(self.client, incomming['postdata'])
+                    if incomming['type'] == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
+                    self.events[event](
+                        user=ReceivedUser(self.client, incomming['userdata']), type=incomming['type'], post=post, reply=reply
+                    )
+                    return
+
+            elif event == "UNLIKE":
+                if event in self.events:
+                    post, reply = None, None 
+                    if incomming['type'] == "post": post = ReceivedPost(self.client, incomming['postdata'])
+                    if incomming['type'] == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
+
+                    self.events[event](
+                        user=ReceivedUser(self.client, incomming['userdata']), type=incomming['type'], post=post, reply=reply
+                    )
+                    return 
+            
+            if self.client.verbose:
+                print(f"{Color.WARNING}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()}", incomming, f" was not fetched!{Color.ENDC}")
+        
+        def on_error(ws, what_failed):
+            print(f"{Color.FAIL}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Error with websockets \n The error:", what_failed, f"{Color.ENDC}")
+            traceback.print_exc()
+
+        def on_open(ws):
+            print(f"{Color.OKGREEN}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Connected with the websockets!{Color.ENDC}")
+
+        def on_close(ws, close_status_code, close_msg):
+            print(f"{Color.WARNING}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Websockets closed!\nClose code:", close_status_code,"  Close msg:", close_msg, f"{Color.ENDC}")
+        
+        
         self.ws = websocket.WebSocketApp(
             url=self.websocket_uri,
-            on_open=self.on_open,
-            on_close=self.on_close,
-            on_error=self.on_error,
-            on_message=self.on_message
+            on_open=on_open,
+            on_close=on_close,
+            on_error=on_error,
+            on_message=on_message
         )
         
+        if self.client.verbose:
+            print(f"{Color.OKGREEN}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Trying to connect with websockets!{Color.ENDC}")
+
         if verify:
             self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
-        else:
-            self.ws.run_forever()
+        else: self.ws.run_forever()

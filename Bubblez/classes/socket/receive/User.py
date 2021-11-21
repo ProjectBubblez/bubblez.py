@@ -11,7 +11,7 @@ class User:
     def __init__(self, client, data) -> None:
         self.client = client
         self.raw_json = data 
-        self.dob = data['dob']
+        if "dob" in data: self.dob = data['dob']
             
         self.uuid = data['uuid']
         self.username = data['username']

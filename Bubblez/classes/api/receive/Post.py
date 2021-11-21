@@ -10,20 +10,19 @@ class Post:
         self.data = data 
         self.postid = int(data["postid"])
         self.deleted = False
-        if data['200'] == "message sent":
+        if "200" in data and data['200'] == "message sent":
             self.message = data['post']
             self.from_ = data['from']
             self.locked = data['locked']
             self.nsfw = data['pnsfw']
             self.replies = []
-        elif data['200'] == "Found post":
+        else:
             self.username = data["username"]
-            self.pfp = data["pfp"]
+            if "pfp" in data: self.pfp = data["pfp"]
             self.nsfw = data["pnsfw"]
             self.message = data["content"]
             self._from = data["from"]
             self.locked = data["locked"]
-            self.nsfw = data["pnsfw"]
             self.edited = data["edited"]
             self.replies = []
             if "post_date" in data:  self.post_date = data['post_date']

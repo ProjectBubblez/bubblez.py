@@ -11,19 +11,17 @@ class User:
     def __init__(self, client, data) -> None:
         self.client = client
         self.raw_json = data 
-        self.dob = data['dob']
-            
         self.uuid = data['uuid']
         self.username = data['username']
         self.display_name = data['displayname']
+        if "dob" in data: self.dob = data['dob']
         if "followers" in data: self.followers = data["followers"]
         self.pfp = data["pfp"]
         self.banner = data["banner"]
         self.coins = data["coins"]
         self.rank = data["rank"]
         self.eventr = data["eventr"]
-        self.patreon = data["patreon"][0].upper()
-        print(self.patreon)
+        self.patreon = data["patreon"][0]
         self.booster = data["booster"]
         self.bio = data["bio"]
         self.nsfw = data["nsfw"]
@@ -31,7 +29,7 @@ class User:
         self.created_at = data["created_at"]
         self.last_posted = data['last_posted']
         self.ban = data['ban']
-
+        print(data)
         if "posts" in data and type(data['posts']) == list:
             self.posts = []
             for post in data["posts"]:
