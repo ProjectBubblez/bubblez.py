@@ -22,12 +22,12 @@ def new_fol(user: classes.User):
     "Do Your thing"
 
 @socket.on(Events.NewReply)
-def new_fol(post: classes.Post, reply: classes.Reply):
+def new_reply(post: classes.Post, reply: classes.Reply):
     print(post.message, reply.message)
     "Do Your thing"
 
 @socket.on(Events.UnFollowed)
-def un_fol(user: classes.User):
+def un_follower(user: classes.User):
     print(user.json())
     "Do Your thing"
 
@@ -37,7 +37,7 @@ def new_edit(user: classes.User, type: str, post: classes.Post, reply: classes.R
     "Do Your thing"
 
 @socket.on(Events.Unlike)
-def un_linke(user: classes.User, type: str, post: classes.Post, reply: classes.Reply):
+def un_link(user: classes.User, type: str, post: classes.Post, reply: classes.Reply):
     print(user.json(), type, post.json(), reply.json())
     "Do Your thing"
 

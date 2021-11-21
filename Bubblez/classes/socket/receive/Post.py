@@ -10,27 +10,25 @@ class Post:
         self.raw_data = data
         self.postid = int(data["postid"])
         self.deleted = False 
-        if data['200'] == "message sent":
-            self.message = data['post']
-            self.from_ = data['from']
-            self.locked = data['locked']
-            self.nsfw = data['pnsfw']
-        elif data['200'] == "Found post":
-            self.username = data["username"]
-            self.pfp = data["pfp"]
-            self.nsfw = data["pnsfw"]
-            self.message = data["content"]
-            self._from = data["from"]
-            self.locked = data["locked"]
-            self.nsfw = data["pnsfw"]
-            self.edited = data["edited"]
-            if "post_date" in data:  self.post_date = data['post_date']
-            if "replies" in data and type(data['replies']) == list:
-                self.replies = []
-                for reply in data['replies']:
-                    self.replies.append(Reply(self.client, reply))
-            else: self.replies = None
+        self.message = None 
+        self.username = data['username']
+
+        if "post" in data: self.message = data['post']
+        if "content" in data: self.message = data['content']
+        if "editedcontent" in data: self.message = data['editedcontent']
+        self.from_ = data['from']
+        self.locked = data['locked']
+        self.pnsfw = data['pnsfw']
+
+        if "edited" in data: self.edited_on = data["edited"]
+        if "post_date" in data: self.posted_on = data['post_date']
     
+        if "replies" in data and type(data['replies']) == list:
+            self.replies = []
+            for reply in data['replies']:
+                self.replies.append(Reply(self.client, reply))
+        else: self.replies = None
+
     def edit(self, message:str):
         """
         Editing the post thro the Bubblez api!

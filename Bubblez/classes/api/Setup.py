@@ -10,7 +10,7 @@ class Setup:
     def login(self):
         if not self.client.token:
             print(f"{Color.FAIL}[Bubblez.py-{self.client.prefix_log}] {logTime()} Token missing! {Color.ENDC}")
-            return 
+            quit()
         data, _url = {}, "/user/check"
         if self.client.canary: url = self.client.canary_url + _url
         else: url = self.client.live_url + _url 
@@ -24,6 +24,7 @@ class Setup:
             except:
                 print(f"{Color.FAIL}[Bubblez.py-{self.client.prefix_log}] {logTime()} Could not login!, Status Code: {response.status_code} {Color.ENDC}")
                 print(f"{Color.FAIL}Server response:", response.content, Color.ENDC)
-                return 
+                quit()
         print(f"{Color.FAIL}[Bubblez.py-{self.client.prefix_log}] {logTime()} Could not login!{Color.ENDC}")
         print(f"{Color.FAIL} Status code:", response.status_code, Color.ENDC)
+        quit()

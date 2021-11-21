@@ -107,7 +107,6 @@ class Socket:
             elif event == "NEW_REPLY":
                 if event in self.events:
                     self.events[event](
-                            post=ReceivedPost(self.client, incomming['postdata']), 
                             reply=ReceivedReply(self.client, incomming['replydata'])
                             )
                     return
@@ -121,10 +120,16 @@ class Socket:
 
             elif event == "NEW_LIKE":
                 if event in self.events:
+                    type, post, reply = incomming['type'], None, None 
+
+                    if type == "post":
+                        post = ReceivedPost(self.client, incomming['postdata'])
+                    elif type == "reply":
+                        reply = ReceivedReply(self.client, incomming['replydata'])
+
                     self.events[event](
-                            type=incomming['type'], 
+                            type=type, post=post, reply=reply,
                             user=ReceivedUser(self.client, incomming['userdata']), 
-                            post=ReceivedPost(self.client, incomming['postdata'])
                         )
                     return
 
@@ -144,9 +149,11 @@ class Socket:
 
             elif event == "NEW_EDIT":
                 if event in self.events:
-                    post, reply = None, None 
-                    if incomming['type'] == "post": post = ReceivedPost(self.client, incomming['postdata'])
-                    if incomming['type'] == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
+                    type, post, reply = incomming['type'], None, None 
+                    if type == "post": 
+                        post = ReceivedPost(self.client, incomming['postdata'])
+                    elif type == "reply": 
+                        reply = ReceivedReply(self.client, incomming['replydata'])
                     self.events[event](
                         user=ReceivedUser(self.client, incomming['userdata']), type=incomming['type'], post=post, reply=reply
                     )
@@ -154,9 +161,9 @@ class Socket:
 
             elif event == "UNLIKE":
                 if event in self.events:
-                    post, reply = None, None 
-                    if incomming['type'] == "post": post = ReceivedPost(self.client, incomming['postdata'])
-                    if incomming['type'] == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
+                    type, post, reply = incomming['type'], None, None 
+                    if type == "post": post = ReceivedPost(self.client, incomming['postdata'])
+                    elif type == "reply": reply = ReceivedReply(self.client, incomming['replydata'])
 
                     self.events[event](
                         user=ReceivedUser(self.client, incomming['userdata']), type=incomming['type'], post=post, reply=reply

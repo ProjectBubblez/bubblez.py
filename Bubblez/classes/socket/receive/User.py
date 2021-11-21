@@ -23,7 +23,6 @@ class User:
         self.rank = data["rank"]
         self.eventr = data["eventr"]
         self.patreon = data["patreon"][0].upper()
-        print(self.patreon)
         self.booster = data["booster"]
         self.bio = data["bio"]
         self.nsfw = data["nsfw"]
@@ -39,7 +38,7 @@ class User:
         else:
             self.posts = None 
             if self.client.verbose:
-                print(f"{Color.WARNING}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} There where no posts found when fetching user! {Color.ENDC}")
+                print(f"{Color.OKCYAN}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} There where no posts found when fetching user! {Color.ENDC}")
 
         if "replies" in data and type(data['replies']) == list:
             self.replies = []
@@ -49,6 +48,7 @@ class User:
             self.replies = None 
             if self.client.verbose:
                 print(f"{Color.OKCYAN}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} There where no replies found when fetching user! {Color.ENDC}")
+
 
     def update(self):
         """
