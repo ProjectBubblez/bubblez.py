@@ -6,7 +6,7 @@ A Python Module for the [Bubblez.app](https://bubblez.app) api
 - Python: [Github Bubblez.py](https://github.com/ProjectBubblez/bubblez.py)
 - PyPi: [bubblez.py](https://pypi.org/project/bubblez.py/)
 - Bubblez.js: [bubblez.js](https://github.com/ProjectBubblez/bubblez.js)
-- Bubblez.js Wiki/Documentation: [Wiki/Documentation](https://github.com/ProjectBubblez/bubblez.js/blob/master/DOCUMENTATION.md)
+- Bubblez.js Wiki/Documentation: [Wiki/Documentation](https://github.com/ProjectBubblez/documentation)
  ---- 
 - Live Website: [bubblez.app](https://bubblez.app)
 - Canary Website [canary.bubblez.app](https://canary.bubblez.app/)
@@ -77,7 +77,8 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
         "Do Your thing"
 
     @socket.on(Events.NewReply)
-    def new_reply(post: classes.Post, reply: classes.Reply):
+    def new_reply(postid: int, reply: classes.Reply):
+        post = client.post.get(postid)
         print(post.message, reply.message)
         "Do Your thing"
 
@@ -104,6 +105,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 ## User stuff: 
 #### Check the user:
 ##### Command: ```user = client.user.check()```
+This command checks the client's token 
 ##### The response: 
 ```user.json()```
 ```js
@@ -166,7 +168,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 }
 ```
 #### Get the user:
-##### Command: ```user = client.user.get()```
+##### Command: ```user = client.user.get(username=..)```
 | Arguments | Type      | Value |
 | :---      | :---      | :--- | 
 | username  | ```str``` | The user you want to get | 
@@ -211,7 +213,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 
 ## Posts stuff:
 #### Send a Post:
-##### Command: ```post = client.post.send()```
+##### Command: ```post = client.post.send(message=.., from_=.., locked=.., nsfw=..)```
 | Arguments | Type      | Value                           |
 | :---      | :---      | :---
 | message   | ```str``` | The message in the post.                   | 
@@ -232,7 +234,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 ```
 
 #### Get a post
-##### Command: ```post = client.post.get()```
+##### Command: ```post = client.post.get(postid=..)```
 ##### The response: 
 | Arguments | Type      | Value                           |
 | :---      | :---      | :--- | 
@@ -267,7 +269,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 ```
 
 #### Delete a Post
-##### Command: ```post = client.post.delete()```
+##### Command: ```post = client.post.delete(postid=..)```
 | Arguments | Type      | Value                           |
 | :---      | :---      | :--- | 
 | postid    | ```int``` | The id of the post you want to delete. | 
@@ -281,7 +283,7 @@ Check the [examples](https://github.com/ProjectBubblez/bubblez.py/tree/main/exam
 ```
 
 #### Lock a post
-##### Command: ```post = client.post.lock()```
+##### Command: ```post = client.post.lock(postid=.., togglelock=..)```
 | Arguments | Type      | Value                           |
 | :---      | :---      | :--- | 
 | postid    | ```int``` | The post id|  
@@ -301,7 +303,7 @@ or when unlocked
 ```
 
 #### Get the latest post ```Global```
-##### Command: ```post = client.post.get_latest()```
+##### Command: ```post = client.post.get_latest(id_only=..)```
 | Arguments | Type      | Value                           |
 | :---      | :---      | :--- | 
 | id_only    | ```bool``` | If False, than it returns a Post object else only the ID | 
@@ -318,7 +320,7 @@ or when unlocked
 
 ## Reply's: 
 #### Send a reply
-##### Command: ```reply = client.reply.send()```
+##### Command: ```reply = client.reply.send(message=.., postid=.., from_=.., nsfw=...)```
 | Arguments | Type      | Value                           |
 | :---      | :---      | :---
 | message   | ```str``` | The message in the reply.                   | 
@@ -339,7 +341,7 @@ or when unlocked
 ```
 
 #### Delete a reply
-##### Command: ```reply = client.reply.delete()```
+##### Command: ```reply = client.reply.delete(replyid=..)```
 | Arguments | Type      | Value                           |
 | :---      | :---      | :---
 | replyid    | ```int``` | The postid you want to reply on |  
@@ -353,7 +355,7 @@ or when unlocked
 ```
 
 #### Edit a reply()
-##### Command: ```reply = client.reply.edit()```
+##### Command: ```reply = client.reply.edit(replyid=.., message=..)```
 | Arguments | Type      | Value                           |
 | :---      | :---      | :---                  | 
 | replyid   | ```int``` | The postid you want to reply on |  
@@ -363,13 +365,15 @@ or when unlocked
 ```js
 {
     "200": "Reply 1473 has been updated"
-}
+    }
 ```
+
 <br>
 
 ## Blog:
 #### Get the latest Blog post!()
 ##### Command: ```devlog = client.devlog.get_latest()```
+This command returns the latest Blog! 
 ##### The response: 
 ```devlog.json()```
 ```js

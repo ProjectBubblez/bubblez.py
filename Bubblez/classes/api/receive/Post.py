@@ -90,8 +90,7 @@ class Post:
             traceback.print_exc()
             return False 
 
-    def unlock(self):
-        self.lock(False)
+    def unlock(self): self.lock(False)
 
     def delete(self):
         url, data = self.client.live_url, {"token": self.client.token, "postid": self.postid, "confirm": "true"}

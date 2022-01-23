@@ -10,19 +10,24 @@ from ..classes.socket.receive.Reply import Reply as ReceivedReply
 from ..classes.socket.receive.Likes import Likes as ReceivedLike
 from ..classes.socket.receive.Follower import Follower as ReceivedFollower
 from ..classes.socket.receive.Edit import Edit as ReceivedEdit
+from ..classes.api.send.Post import Post as POSTAPI
 
-import websocket, json, time, _thread, ssl, functools
+import websocket, json, time, _thread, ssl, functools, threading
 
 class Interval:
     def __init__(self, socket) -> None:
         self.sockets_client = socket
-    
+        self.thread = None 
+
     def sleeping_ping(self, mili):
         time.sleep(mili/1000)
         self.sockets_client.ping()
 
     def setPing(self, mili_sec):
-        _thread.start_new_thread(self.sleeping_ping, (mili_sec,))
+        self.thread = threading.Thread(target=self.sleeping_ping, args=(mili_sec,), daemon=True)
+        self.thread.start()
+    
+            
 
 class Socket:
     def __init__(self, client, url=None) -> None:
@@ -69,7 +74,7 @@ class Socket:
 
             if event == "AUTHENTICATION_REQUIRED":
                 if self.client.verbose:
-                    print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Trying to authenticated!", Color.ENDC)
+                    print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Trying to authenticate!", Color.ENDC)
                 self.ws.send(json.dumps(({
                         "message": "SEND_TOKEN",
                         "token": self.client.token,
@@ -78,9 +83,10 @@ class Socket:
                 return 
                 
             elif event == "AUTHENTICATED":
+                print(f"{Color.OKBLUE}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Authenticated!", Color.ENDC)
                 self.mili_bt_ping = incomming['heartbeatinterval']
                 self.ping()
-                self.ping_thread.setPing(self.mili_bt_ping)
+                #self.ping_thread.setPing(self.mili_bt_ping)
                 return 
 
             elif event == "HEARTBEAT_ACK":
@@ -106,9 +112,11 @@ class Socket:
 
             elif event == "NEW_REPLY":
                 if event in self.events:
+                    print(incomming)
                     self.events[event](
+                            postid=incomming['postid'],
                             reply=ReceivedReply(self.client, incomming['replydata'])
-                            )
+                        )
                     return
 
             elif event == "NEW_DEVLOG":
@@ -195,6 +203,9 @@ class Socket:
         if self.client.verbose:
             print(f"{Color.OKGREEN}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Trying to connect with websockets!{Color.ENDC}")
 
+
         if verify:
             self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
         else: self.ws.run_forever()
+
+        

@@ -22,7 +22,8 @@ def new_fol(user: classes.User):
     "Do Your thing"
 
 @socket.on(Events.NewReply)
-def new_reply(post: classes.Post, reply: classes.Reply):
+def new_reply(postid: int, reply: classes.Reply ):
+    post = client.post.get(postid)
     print(post.message, reply.message)
     "Do Your thing"
 

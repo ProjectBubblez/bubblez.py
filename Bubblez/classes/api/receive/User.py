@@ -29,7 +29,6 @@ class User:
         self.created_at = data["created_at"]
         self.last_posted = data['last_posted']
         self.ban = data['ban']
-        print(data)
         if "posts" in data and type(data['posts']) == list:
             self.posts = []
             for post in data["posts"]:

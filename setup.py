@@ -8,7 +8,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.0.5.5.6'
+VERSION = '0.0.5.5.8'
 DESCRIPTION = 'Api Module for https://bubblez.app/ and websockets'
 
 # Setting up
@@ -25,8 +25,8 @@ setup(
         "Bubblez.classes", "Bubblez.classes.api", "Bubblez.classes.api.send", "Bubblez.classes.api.receive", 
         "Bubblez.classes.socket", "Bubblez.classes.socket.receive","Bubblez.classes.socket.events",
         "Bubblez.socket"],
-    install_requires=['requests', "websocket-client"],
-    keywords=['python', 'api', "websocket-client"],
+    install_requires=['requests'],
+    keywords=['python', 'api', "websockets"],
     classifiers=[
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
