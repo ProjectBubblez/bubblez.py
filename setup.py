@@ -25,7 +25,7 @@ setup(
         "Bubblez.classes", "Bubblez.classes.api", "Bubblez.classes.api.send", "Bubblez.classes.api.receive", 
         "Bubblez.classes.socket", "Bubblez.classes.socket.receive","Bubblez.classes.socket.events",
         "Bubblez.socket"],
-    install_requires=['requests'],
+    install_requires=['requests', "rel"],
     keywords=['python', 'api', "websockets"],
     classifiers=[
         "Intended Audience :: Developers",

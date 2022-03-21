@@ -12,7 +12,9 @@ from ..classes.socket.receive.Follower import Follower as ReceivedFollower
 from ..classes.socket.receive.Edit import Edit as ReceivedEdit
 from ..classes.api.send.Post import Post as POSTAPI
 
-import websocket, json, time, _thread, ssl, functools, threading
+import websocket, json, time, _thread, ssl, functools, threading, rel
+
+rel.safe_read()
 
 class Interval:
     def __init__(self, socket) -> None:
@@ -191,7 +193,7 @@ class Socket:
         def on_close(ws, close_status_code, close_msg):
             print(f"{Color.WARNING}[Bubblez.py-websockets-{self.client.prefix_log}] {logTime()} Websockets closed!\nClose code:", close_status_code,"  Close msg:", close_msg, f"{Color.ENDC}")
         
-        
+        websocket.enableTrace(True)
         self.ws = websocket.WebSocketApp(
             url=self.websocket_uri,
             on_open=on_open,
@@ -205,7 +207,10 @@ class Socket:
 
 
         if verify:
-            self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
-        else: self.ws.run_forever()
+            self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, dispatcher=rel)
+        else: self.ws.run_forever(dispatcher=rel)
+
+        rel.signal(2, rel.abort)
+        rel.dispatch()
 
         
