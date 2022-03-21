@@ -69,7 +69,7 @@ class Socket:
         )
         self.ping_send = True 
 
-    def connect(self, verify:bool=False):
+    def connect(self, verify:bool=True):
         def on_message(ws: websocket.WebSocketApp, incomming):
             incomming = json.loads(incomming)
             event = incomming['message']
