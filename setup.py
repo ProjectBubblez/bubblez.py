@@ -15,7 +15,7 @@ DESCRIPTION = 'Api Module for https://bubblez.app/ and websockets'
 setup(
     name="Bubblez.py",
     version=VERSION,
-    author="Mees Meijer (Discord: @MeeSOS#1721)  support@meesinc.nl",
+    author="Mees Meijer (Discord: @MeeSOS#5890)  meesos@bubblez.app",
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
     long_description=long_description,
