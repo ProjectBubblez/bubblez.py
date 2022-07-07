@@ -1,13 +1,13 @@
+
 from .Methods import Methods
 from .Url import Url
-
 
 ENDPOINT = "http://192.168.2.7:8080/api/v2"
 STAND_HEADER = {"Content-Type": "application/json"}
 
 class Endpoints:
     class Posts:
-        def get(postid:int, replies:bool=True) -> Url:
+        def get(postid:str, replies:bool=True) -> Url:
             return Url(
                 url = ENDPOINT + "/posts/get",
                 method = Methods.GET(),
@@ -19,6 +19,17 @@ class Endpoints:
                 json={},
                 )
         
+        def getAll(replies:bool=False) -> Url:
+                return Url(
+                    url = ENDPOINT + "/posts/get/all",
+                    method = Methods.GET(),
+                    params = {
+                        "replies": replies
+                    },
+                    headers=STAND_HEADER,
+                    json={},
+                )
+
         def send(content:str, locked:bool=False, nsfw:bool=False) -> Url:
             return Url(
                 url = ENDPOINT + "/posts/send",
@@ -32,7 +43,7 @@ class Endpoints:
                 }
             )
 
-        def delete(postid:int) -> Url:
+        def delete(postid:str) -> Url:
             return Url(
                 url = ENDPOINT + "/posts/delete",
                 headers=STAND_HEADER,
@@ -41,7 +52,7 @@ class Endpoints:
                 json={}
             )
 
-        def edit(postid:int, locked: bool = None, nsfw: bool = None, content: str = None) -> Url:
+        def edit(postid:str, locked: bool = None, nsfw: bool = None, content: str = None) -> Url:
             json = {}
             if locked != None: json["locked"] = locked
             if nsfw != None: json["nsfw"] = nsfw
@@ -52,15 +63,15 @@ class Endpoints:
 
             return Url(
                 url = ENDPOINT + "/posts/edit",
-                headers=STAND_HEADER,
-                json=json,
-                method=Methods.POST(),
-                params={
+                headers = STAND_HEADER,
+                json = json,
+                method = Methods.POST(),
+                params = {
                     "postid": postid
                 }
             )
     
-        def lock(postid:int, locked:bool=True) -> Url:
+        def lock(postid:str, locked:bool=True) -> Url:
             if locked == None: 
                 raise Exception("locked can not be None")
 
@@ -117,7 +128,7 @@ class Endpoints:
                 headers = STAND_HEADER
             )
             
-        def send(postid: int, content: str, locked : bool = False, nsfw: bool = False) -> Url:
+        def send(postid:str, content: str, locked : bool = False, nsfw: bool = False) -> Url:
             json = {}
             if locked != None: json["locked"] = locked
             if nsfw != None: json["nsfw"] = nsfw
