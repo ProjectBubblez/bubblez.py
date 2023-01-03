@@ -1,3 +1,5 @@
 **/__pycache__/
 /main.py 
 /test.py
+**/dist/
+**/Bubblez.py.egg-info/

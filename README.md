@@ -2,6 +2,9 @@
 A Python Module for the [Bubblez.app](https://bubblez.app) api
 - [Bubblez.app](https://bubblez.app/library#bubblez.py) has approved Bubblez.py
 
+
+# Bubblez live will shutdown from 07-01-2023 till ... 
+
 ## Version's 
 - Python: [Github Bubblez.py](https://github.com/ProjectBubblez/bubblez.py)
 - PyPi: [bubblez.py](https://pypi.org/project/bubblez.py/)
